@@ -12,9 +12,10 @@ st.header('Contagem de usuários por categoria')
 query = get_categoria_count_query()
 data = fetch_data_from_db(query)
 
-print(data)
+if data.empty:
+    st.warning("Nenhum dado encontrado.")
+else:
+    st.write(data)
+    st.bar_chart(data.set_index('categoria')['usuario_count'])
 
-st.write(data)
 
-# Gráfico de barras (Exemplo)
-st.bar_chart(data.set_index('categoria')['usuario_count'])
